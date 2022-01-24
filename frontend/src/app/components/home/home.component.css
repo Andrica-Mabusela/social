@@ -1,0 +1,20 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.bg-custom {
+    background-color: #F6F9FD;
+}
+.name {
+    color: black;
+}
+
+.space-between {
+    margin: 5px;
+}
+
+.txt-cl {
+    font-weight: lighter;
+}

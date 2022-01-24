@@ -40,6 +40,11 @@
     margin: 10px;
 }
 
+.b-borber {
+    border-top: 1px solid #152632;
+    border-bottom: 1px solid #152632;
+}
+
 
 /* NAVBAR MEDIA QUERIES  */
 @media (min-width: 576px) {
