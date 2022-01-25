@@ -2,8 +2,14 @@
     <div class="card">
         <h4 class="text-center p-2">sign up</h4>
          <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+
+            <!-- USERNAME FIELD -->
              <div class="form-group">
-                 <div class="error" *ngIf="myForm.get('username').invalid && ( myForm.get('username').dirty || myForm.get('username').touched )">scxjdcjdk</div>
+                 <div class="error" *ngIf="myForm.get('username').invalid && ( myForm.get('username').dirty || myForm.get('username').touched )">
+                     <div *ngIf="myForm.get('username').errors?.['required']">
+                         Username is required
+                     </div>
+                 </div>
              <div class="input-group">
                  <div class="input-group-addon">
                      <i class="fas fa-user"></i>
@@ -12,9 +18,12 @@
              </div>
              </div>
 
-
+             <!-- EMAIL FIELD  -->
              <div class="form-group">
-                 <div class="error" *ngIf="myForm.get('email').invalid && ( myForm.get('email').dirty || myForm.get('email').touched )">sdjncndcjnjdnc</div>
+                 <div class="error" *ngIf="myForm.get('email').invalid && ( myForm.get('email').dirty || myForm.get('email').touched )">
+                     <div *ngIf="myForm.get('email').errors?.['required']">Email Address is required</div>
+                     <div *ngIf="myForm.get('email').errors?.['email']">Email Address is invalid</div>
+                 </div>
                 <div class="input-group">
                     <div class="input-group-addon">
                         <i class="fas fa-envelope"></i>
@@ -23,8 +32,29 @@
                 </div>
             </div>
 
+
+            <!-- DATE FIELD  -->
+            <!-- <div class="form-group">
+                <div class="error" *ngIf="myForm.get('date').invalid && ( myForm.get('date').dirty || myForm.get('date').touched )">
+                    <div *ngIf="myForm.get('date').errors?.['required']">Date of Birth is required</div>
+                    <div></div>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="far fa-calendar-alt"></i>
+                    </div>
+                    <input type="date" formControlName="date" class="form-control" autocomplete="off">
+                </div>
+            </div> -->
+
+            <!-- PASSWORD FIELD  -->
+
             <div class="form-group">
-                <div class="error" *ngIf="myForm.get('password').invalid && ( myForm.get('password').dirty || myForm.get('password').touched )">sdcjjndfjnddfd</div>
+                <div class="error" *ngIf="myForm.get('password').invalid && ( myForm.get('password').dirty || myForm.get('password').touched )">
+                    <div *ngIf="myForm.get('password').errors?.['required']">Password is Required</div>
+                    <div *ngIf="myForm.get('password').errors?.['minlength']">Password must be at least 8 characters</div>
+                </div>
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fas fa-lock"></i>
@@ -33,8 +63,13 @@
                     </div>
             </div>
 
+            <!-- CONFIRM PASSWORD FIELD  -->
+
             <div class="form-group">
-                <div class="error" *ngIf="myForm.get('confirm_password').invalid && ( myForm.get('confirm_password').dirty || myForm.get('confirm_password').touched )">wedhbhdju</div>
+                <div class="error" *ngIf="myForm.get('confirm_password').invalid && ( myForm.get('confirm_password').dirty || myForm.get('confirm_password').touched )">
+                    <div *ngIf="myForm.get('confirm_password').errors?.['required']">Confirm Your Password</div>
+                    <div *ngIf="myForm.get('confirm_password').errors?.['confirmPasswordMatch']">Your Passwords do not match</div>
+                </div>
                 <div class="input-group">
                     <div class="input-group-addon">
                         <i class="fas fa-lock"></i>
