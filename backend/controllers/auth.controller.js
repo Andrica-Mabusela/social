@@ -1,42 +1,84 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const pool = require('../config/db')
+const joi = require('@hapi/joi')
 
+const maxAge = 2 * 24 * 60 * 60
 
+const createToken = id => jwt.sign({id}, 'a very big secret', {expiresIn: '10m'})
 
 module.exports.authController = {
 
     createUser: async (req, res) => {
         // user data
-        const {username, email, password, confirm_password} = req.body 
+        const {username, email, password} = req.body
 
 
-        // CHECK IF EMAIL IS ALREADY REGISTERED
-        const checkEmailQuery = await pool.query("SELECT email FROM users WHERE email = $1", [email])
+        // 1. CHECK IF EMAIL ADDRESS EXISTS IN THE DATABASE
+        const getEmailQuery = await pool.query('SELECT email FROM users WHERE email = $1', [email])
+        console.log(getEmailQuery.rows[0])
 
-        const returnedEmail = checkEmailQuery.rows[0].email
-        
-        if( email == returnedEmail ){
-            res.json('email already exists')
-            return;
+        if( getEmailQuery.rows[0] != undefined ){
+            // RETURN THE ERROR MESSAGE
+            res.json({error: "Email address already exists", success: false, user: null})
+            return
         } else {
-            // CREATE NEW USER
 
-            // 1. HASH THE PASSWORD
-            const salt = await bcrypt.genSalt(10)
-            const hashedPassword = await bcrypt.hash(password, salt)
 
-            const insertUserQuery = await pool.query("INSERT INTO users(username, email, password) VALUES($1, $2, $3)", [username, email, hashedPassword])
-            console.log(insertUserQuery)
-            res.json('user created')
+            //validaion email schema     
+            const valUserSchema= { 
+                email: joi.string().min(5).required().email(),
+            }
+
+            const {error}= joi.validate({email},valUserSchema); 
+            console.log('joi error messages ', error)
+
+            if(error != null) {
+                
+                res.json({error: "Your Email Address is invalid", success: false})
+            } else {
+
+                    // CREATE A NEW USER
+                    console.log('reached here')
+                    // HASH THE PASSWORD
+                    const salt = bcrypt.genSaltSync(10)
+                    const hashedPassword = bcrypt.hashSync(password, salt);
+                    const createUserQuery = await pool.query("INSERT INTO users(username, email, password) VALUES($1, $2, $3) RETURNING *", [username, email, hashedPassword])
+                    console.log(createUserQuery.rows[0].user_id)
+                    console.log("new user has been created")
+                    res.json({error: null, success: true, user: createUserQuery.rows[0]})
+
+            }
+
         }
-        
-
-
 
     },
 
-    logUserIn: (req, res) => {
+    logUserIn: async (req, res) => {
+        const { email, password } = req.body
+
+        // CHECK IF EMAIL IS REGISTERED
+        const getEmailQuery = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
+
+        if(getEmailQuery.rows[0] == undefined) { // EMAIL DOES NOT EXIST IN THE DB
+            console.log('email does not exist')
+            res.send({error: "Email is not registered", success: false, user: null})
+        }else {
+            // check for mathcing password
+            const userPassword = getEmailQuery.rows[0].password
+            const doesPasswordMatch = await bcrypt.compare(password, userPassword)
+            console.log('does password match: ', doesPasswordMatch)
+
+            if(doesPasswordMatch) {
+                // email and password match, therefore log the user in.
+                const token = createToken(getEmailQuery.rows[0].user_id)
+                res.cookie('user_token', token, { maxAge: maxAge, httpOnly: true})
+                res.send({error: null, success: true, user: getEmailQuery.rows[0]})
+            } else {
+                res.send({error: "icorrect email/password combination", success: false, user: null})
+            }
+        }
+
 
     },
 
@@ -44,4 +86,18 @@ module.exports.authController = {
 
     }
 
+}
+
+
+
+// npm i @hapi/joi 
+exports.validateUser=(user)=>{ 
+    //validaion user schema     
+    const valUserSchema= { 
+    username:Joi.string().min(3).required(), 
+    email: Joi.string().min(5).required().email(),
+    password: Joi.string().min(5).required()
+} 
+    const {error}= Joi.validate(user,valUserSchema); 
+    return error ? error.details[0].message : null;
 }
