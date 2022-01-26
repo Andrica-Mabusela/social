@@ -5,7 +5,10 @@ const joi = require('@hapi/joi')
 
 const maxAge = 2 * 24 * 60 * 60
 
-const createToken = id => jwt.sign({id}, 'a very big secret', {expiresIn: '10m'})
+const createToken = (id) => {
+    console.log('reached createToken')
+    return jwt.sign({id}, 'a very big secret', {expiresIn: maxAge})
+}
 
 module.exports.authController = {
 
@@ -54,6 +57,8 @@ module.exports.authController = {
 
     },
 
+    // LOG IN THE USER TO THE WEB APP
+
     logUserIn: async (req, res) => {
         const { email, password } = req.body
 
@@ -71,11 +76,14 @@ module.exports.authController = {
 
             if(doesPasswordMatch) {
                 // email and password match, therefore log the user in.
-                const token = createToken(getEmailQuery.rows[0].user_id)
-                res.cookie('user_token', token, { maxAge: maxAge, httpOnly: true})
+                const user_id = getEmailQuery.rows[0].user_id;
+                console.log('user_id:', user_id)
+                const token = createToken(user_id)
+                console.log(token)
+                res.cookie('user', token, {httpOnly: true, sameSite: true, maxAge: maxAge})
                 res.send({error: null, success: true, user: getEmailQuery.rows[0]})
             } else {
-                res.send({error: "icorrect email/password combination", success: false, user: null})
+                res.send({error: "incorrect email/password combination", success: false, user: null})
             }
         }
 
@@ -91,13 +99,13 @@ module.exports.authController = {
 
 
 // npm i @hapi/joi 
-exports.validateUser=(user)=>{ 
-    //validaion user schema     
-    const valUserSchema= { 
-    username:Joi.string().min(3).required(), 
-    email: Joi.string().min(5).required().email(),
-    password: Joi.string().min(5).required()
-} 
-    const {error}= Joi.validate(user,valUserSchema); 
-    return error ? error.details[0].message : null;
-}
+// exports.validateUser=(user)=>{ 
+//     //validaion user schema     
+//     const valUserSchema= { 
+//     username:Joi.string().min(3).required(), 
+//     email: Joi.string().min(5).required().email(),
+//     password: Joi.string().min(5).required()
+// } 
+//     const {error}= Joi.validate(user,valUserSchema); 
+//     return error ? error.details[0].message : null;
+// }
