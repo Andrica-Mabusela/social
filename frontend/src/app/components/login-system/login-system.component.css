@@ -24,6 +24,12 @@
 }
 
 
+.error {
+    color: red;
+}
+
+
+
 /* SMALL DEVICES  */
 @media (min-width: 576px) {
     #login-wrapper {

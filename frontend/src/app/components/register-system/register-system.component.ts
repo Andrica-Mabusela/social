@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -10,9 +11,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterSystemComponent implements OnInit {
 
-  constructor(private router: Router, private fb: FormBuilder) { }
+  constructor(private router: Router, private fb: FormBuilder, private authService: AuthService) { }
 
   myForm : any;
+
+  emailExistsError: string = '';
+  invalidEmailError: string = '';
 
   toSignIn(){
     this.router.navigate(['signin'])
@@ -32,33 +36,27 @@ export class RegisterSystemComponent implements OnInit {
     }
   }
 
-  isDateInvalid(dateOfBirth: any){
-      return (formGroup: FormGroup) => {
-        const control = formGroup.controls[dateOfBirth];
 
-        const date1 = dateOfBirth.getTime()
-        const date2 = new Date().getTime()
-
-
-        // set an error if validation fails
-        if( date1 >= date2 ) {
-            control.setErrors({isDateInvalid: true})
-        }else {
-            control.setErrors(null)
-        }
-        
-      }
-  }
 
   onSubmit(form: FormGroup){
-
+      console.log('you reached here')
+      console.log(this.myForm.value)
+      this.authService.createUser(this.myForm.value).subscribe((data) => {
+          this.emailExistsError = data.error
+          if(data.error == null){
+              this.router.navigate(['signin'])
+          } else {
+            this.invalidEmailError = data.error
+            console.log(this.invalidEmailError)
+          }
+          console.log(data.error)
+      })
   }
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
       username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      date: [null, Validators.required],
+      email: ['', Validators.required],
       password: ['', [ Validators.required, Validators.minLength(8) ]],
       confirm_password: ['', Validators.required]
     }, {

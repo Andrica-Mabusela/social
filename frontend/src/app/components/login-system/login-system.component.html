@@ -1,19 +1,35 @@
 <div id="login-wrapper">
     <div class="card">
         <h4 class="text-center p-2">sign in</h4>
-         <form>
-             <div class="form-group input-group">
+         <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+            <div class="form-group">
+                <div *ngIf="myForm.get('email').touched || myForm.get('email').dirty">
+                    <div class="error" *ngIf="myForm.get('email').errors?.['required']">
+                        Email address is required
+                    </div>
+                </div>
+                
+             <div class="input-group">
                  <div class="input-group-addon">
                     <i class="fas fa-envelope"></i>
                  </div>
-                 <input type="email" placeholder="email" class="form-control" name="email" autocomplete="off">
+                 <input type="email" formControlName="email" placeholder="email" class="form-control" autocomplete="off">
+             </div>
              </div>
 
-            <div class="form-group input-group">
-                <div class="input-group-addon">
-                    <i class="fas fa-lock"></i>
+             <div class="form-group">
+               <div class="error" *ngIf="myForm.get('password').touched || myForm.get('password').dirty">
+                   <div *ngIf="myForm.get('password').errors?.['required']">
+                        Password is required
+                     </div> 
+
                 </div>
-                <input type="password" placeholder="password" class="form-control" name="password" autocomplete="off">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <input type="password" formControlName="password" placeholder="password" class="form-control" autocomplete="off">
+                </div>
             </div>
 
             <button type="submit" class="btn btn-md btn-block text-white signin-btn">sign in</button>
