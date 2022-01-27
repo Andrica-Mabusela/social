@@ -25,8 +25,8 @@ export class LoginSystemComponent implements OnInit {
     console.log(this.myForm.value)
     this.authService.loginUser(this.myForm.value).subscribe((data) => {
       console.log('submitted')
-      this.loginError = data.value;
-      console.log(data)
+      this.loginError = data.error;
+      console.log(this.loginError);
     })
 
   }
