@@ -1,12 +1,13 @@
 const express = require('express');
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
+const jwt = require('jsonwebtoken')
 
 // EXPRESS APP
 const app = express();
 
 // CORS
-app.use(cors())
+app.use(cors({origin: true, credentials: true}))
 
 // SERVE JSON
 app.use( express.json() )
