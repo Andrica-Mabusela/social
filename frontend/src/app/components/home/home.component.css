@@ -1,11 +1,13 @@
-/* * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-} */
-
+/* .box {
+    width: 100%;
+}
+ */
 .center-p {
     text-align: center;
+}
+
+.r-border {
+    border-radius: 15px;
 }
 
 .btn-edit {
@@ -33,7 +35,7 @@
 
 .profile-bg {
     background-color: #FFF;
-    height: 92vh;
+    height: 95vh;
     margin-right: 8px;
     padding-left: 8px;
 }
@@ -61,54 +63,30 @@
     width: 100%;
 }
 
-
-
-.home-section-wrapper{
-    /* background: blue; */
-    margin-left: 60px;
-    padding-left: 0 5px;
-    display: flex;
-}
-
-
-.home-section-wrapper main {
-    /* background: red; */
-    flex-basis: 300px;
-    flex-grow: 1;
-    flex-shrink: 1;
-    display: flex;
-    position:relative;
-    z-index: 1;
-    padding: 10px;
-    margin-right: 250px;
-}
-
-.home-section-wrapper aside {
-    /* background: yellow; */
-    width: 300px;
-    position: fixed;
-    height: 100vh;
-    top: 0;
-    right: 0;
-    z-index: 2;
-    padding-top: 8vh;
-}
-
-
-
+.file-btn {
+    background-color: #152632;
+    color: white;
+    padding: 0.5rem;
+    font-family: sans-serif;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
 
 @media (max-width: 768px) {
-    .home-section-wrapper {
-        margin-left: 0;
-        padding: 0 5px;
-    }
 
-    .home-section-wrapper main {
-        margin-right: 0;
-    }
-
-    .home-section-wrapper aside {
+    .hide-content {
         display: none;
     }
 
+    .fix-padding {
+        align-items: center;
+        padding: 0px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .pl-4 {
+        padding: 0px !important;
+    }
 }

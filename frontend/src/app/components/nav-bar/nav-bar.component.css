@@ -55,6 +55,10 @@
     background-color: white;
 }
 
+.components{
+    justify-content: space-between !important;
+    margin: 0 25px;
+}
 
 /* NAVBAR MEDIA QUERIES  */
 @media (min-width: 768px) {
@@ -65,4 +69,6 @@
     .top-menu {
         display: none;
     }
+
+    
 } 
