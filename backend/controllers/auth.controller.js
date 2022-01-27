@@ -12,6 +12,8 @@ const createToken = (id) => {
     return jwt.sign({id}, 'a very big secret', {expiresIn: maxAge})
 }
 
+
+
 module.exports.authController = {
 
     createUser: async (req, res) => {

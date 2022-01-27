@@ -3,12 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 import { AuthGuard } from './auth.guard';
+import { HttpClientModule } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+
 import { AppComponent } from './app.component';
 import { RegisterSystemComponent } from './components/register-system/register-system.component';
 import { LoginSystemComponent } from './components/login-system/login-system.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
@@ -16,6 +18,7 @@ import { HomeComponent } from './components/home/home.component';
     AppComponent,
     RegisterSystemComponent,
     LoginSystemComponent,
+    NavBarComponent,
     HomeComponent
   ],
   imports: [
