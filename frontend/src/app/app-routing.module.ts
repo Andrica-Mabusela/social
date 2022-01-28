@@ -8,7 +8,7 @@ import { RegisterSystemComponent } from './components/register-system/register-s
 import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
-  {path: "profile", component: ProfileComponent},
+  {path: "profile", component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   // {path: 'home', component: NavBarComponent, canActivate: [AuthGuard]},
   {path: "signup", component: RegisterSystemComponent},

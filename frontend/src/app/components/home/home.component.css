@@ -1,7 +1,15 @@
-/* .box {
-    width: 100%;
+.bg-cl {
+    background-color: #F6F9FD;
 }
- */
+
+.box-shadow {
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.post-card img {
+    height: 25vh;
+}
+
 .center-p {
     text-align: center;
 }

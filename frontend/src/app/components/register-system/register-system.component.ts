@@ -44,8 +44,19 @@ export class RegisterSystemComponent implements OnInit {
     this.authService.createUser(this.myForm.value).subscribe((data) => {
       this.emailExistsError = data.error;
       if (data.error == null) {
+        this.router.navigate(['home']);
         console.log(data.user);
-        this.router.navigate(['signin']);
+        localStorage.setItem('token', JSON.stringify(data.token));
+        const userData = {
+          user_id: data.user.user_id,
+          firstName: data.user.firstname,
+          lastName: data.user.lastname,
+          username: data.user.username,
+          email: data.user.email,
+        };
+        
+
+        localStorage.setItem('user', JSON.stringify(userData));
       } else {
         this.invalidEmailError = data.error;
         console.log(this.invalidEmailError);

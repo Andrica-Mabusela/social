@@ -67,31 +67,6 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  // findAccount(): void {
-  //   this._users.searchByUsername(this.username).subscribe({
-  //     next: (data) => {
-  //       this._post = data;
-  //     },
-  //     error: (e) => console.error(e),
-  //   });
-  // }
-
-  // searchAccout(): void {
-  //   this._users.searchByUsername(this.username).subscribe({
-  //     next: (data) => {
-  //       this.accounts = data;
-  //       console.log(data);
-  //     },
-  //     error: (e) => console.error(e),
-  //   });
-  // }
-
-  // searchAccout(username: string): void {
-  //   this._users.searchByUsername(username).subscribe((data) => {
-  //     this.accounts = data
-  //   });
-  // }
-
   saveStory(): void {
     const data = {
       captions: this._newPost.captions,
@@ -117,17 +92,6 @@ export class HomeComponent implements OnInit {
       this.images = file;
     }
   }
-
-  // newPostStory(): void {
-  //   this._newPost = {
-  //     username: '',
-  //     captions: '',
-  //     location: '',
-  //     media: '',
-  //     comments: ''
-  //   };
-
-  // }
 
   onCreatePost(): void {
     const formData = new FormData();

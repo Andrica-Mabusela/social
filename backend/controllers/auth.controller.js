@@ -53,7 +53,8 @@ module.exports.authController = {
                     const createUserQuery = await pool.query("INSERT INTO users(firstName, lastName, username, email, password) VALUES($1, $2, $3, $4, $5) RETURNING *", [firstName, lastName, username, email, hashedPassword])
                     console.log(createUserQuery.rows[0].user_id)
                     console.log("new user has been created")
-                    res.json({error: null, success: true, user: createUserQuery.rows[0]})
+                    const token = createToken(getEmailQuery.rows[0])
+                    res.json({error: null, success: true, user: createUserQuery.rows[0], token: token})
 
             }
 
