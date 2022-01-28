@@ -57,6 +57,7 @@ export class HomeComponent implements OnInit {
     });
 
     this.getAllPosts();
+    console.log(this.allPosts)
   }
 
   getAllPosts(): void {

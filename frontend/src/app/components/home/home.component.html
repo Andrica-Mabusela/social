@@ -8,14 +8,16 @@
 
                 <div class="row mt-4">
                    
-
+                    <!-- {{ user | json }} -->
                     <div *ngFor="let post of allPosts" class="col-md-6 col-sm-6 col-lg-4 mb-4">
                         <div class="card-body bg-white r-border">
 
 
                             <div class="row">
                                 <div class="col">
-                                    <h6 class="text-dark px-1">{{post.username}}</h6>
+                                    <h6 class="text-dark px-1">
+                                        {{post.username}}
+                                    </h6>
                                 </div>
                                 <div class="col">
                                     <span class="d-flex justify-content-end">
@@ -77,7 +79,7 @@
                 <div class="profile-bg p-4">
                     <div class="center-p">
                         <img class="circle" src="../../../assets/img/houcine-ncib.jpg" alt="">
-                        <h2 class="text-dark">{{ userInfo.username }}</h2>
+                        <h2 class="text-dark">{{ user.username }}</h2>
                         <h5 class="text-dark desc-text">fine art photography</h5>
                         <button class="btn btn-edit" (click)="logUserOut()">logout</button>
                     </div>
@@ -97,7 +99,7 @@
                         </div>
                     </div>
 
-                    <h4 class="mt-2 text-dark">{{ userInfo.firstName }} {{ userInfo.lastName }}</h4>
+                    <h4 class="mt-2 text-dark">{{ user.firstName }} {{ user.lastName }}</h4>
                     <p class="text-dark status-text">I am a young creative mind specialized in Software Product Design
                         and
                         Photography.</p>
