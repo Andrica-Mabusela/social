@@ -13,9 +13,9 @@ export class UserservicesService {
   constructor(private _http: HttpClient) { }
 
 
-  // getAll(): Observable<UserStories[]> {
-  //   return this._http.get<UserStories[]>(_url);
-  // }
+  getAll(): Observable<any> {
+    return this._http.get<any>(`${_url}/posts`);
+  }
   
   create(data: any): Observable<any> {
     return this._http.post<any>(`${_url}/uploadFile`, data);

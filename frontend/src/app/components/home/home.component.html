@@ -6,13 +6,15 @@
             <div class="pl-4">
 
                 <div class="row mt-4">
-                    <div class="col-md-6 col-sm-6 col-lg-4 mb-4">
+                   
+
+                    <div *ngFor="let post of allPosts" class="col-md-6 col-sm-6 col-lg-4 mb-4">
                         <div class="card-body bg-white r-border">
 
 
                             <div class="row">
                                 <div class="col">
-                                    <h6 class="text-dark px-1">Name</h6>
+                                    <h6 class="text-dark px-1">{{post.username}}</h6>
                                 </div>
                                 <div class="col">
                                     <span class="d-flex justify-content-end">
@@ -30,11 +32,11 @@
 
                                 </div>
                             </div>
-                            <p class="text-muted px-1">Location</p>
-                            <img class="card-img-top"
-                                src="https://images.unsplash.com/photo-1573843981267-be1999ff37cd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bWFsZGl2ZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
-                                alt="Card image cap">
-                            <div class="d-flex justify-content-between">
+                            <p class="text-muted px-1">{{post.mylocation}}</p>
+                            
+                                <img class="card-img-top" [src]="post.imgpath" alt="not found" />
+
+                                <div class="d-flex justify-content-between">
 
                                 <ul class="nav">
                                     <li class="space-between">
@@ -53,118 +55,22 @@
                                 </ul>
 
                             </div>
-                            <p class="text-dark mb-1 px-2 txt-cl">I miss being in the Maldives and never knowing what
-                                day of the week it is</p>
+                            <p class="text-dark mb-1 px-2 txt-cl">
+                                {{post.caption}}
+                            </p>
                         </div>
                     </div>
 
-                    <div class="col-md-6 col-sm-6 col-lg-4 mb-4">
-                        <div class="card-body bg-white r-border">
-
-
-                            <div class="row">
-                                <div class="col">
-                                    <h6 class="text-dark px-1">Name</h6>
-                                </div>
-                                <div class="col">
-                                    <span class="d-flex justify-content-end">
-                                        <a type="button" id="dropdown-menu" data-toggle="#dropdown-menu"
-                                            aria-haspopup="true" aria-expanded="false">
-                                            <i class="fa fa-ellipsis-v"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-primary" id="dropdown-menu">
-                                            <a class="dropdown-item"><i class="fab fa-apple-pay"></i>Pay</a>
-                                            <a class="dropdown-item"><i class="fas fa-bell-slash"></i>Disable
-                                                alertss</a>
-                                            <a class="dropdown-item"><i class="far fa-envelope"></i>Check mail</a>
-                                        </div>
-                                    </span>
-
-                                </div>
-                            </div>
-                            <p class="text-muted px-1">Location</p>
-                            <img class="card-img-top"
-                                src="https://images.unsplash.com/photo-1573843981267-be1999ff37cd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bWFsZGl2ZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
-                                alt="Card image cap">
-                            <div class="d-flex justify-content-between">
-
-                                <ul class="nav">
-                                    <li class="space-between">
-                                        <a><span class="fa fa-heart p-2"></span></a>
-                                    </li>
-                                    <li class="space-between">
-                                        <a><span class="fa fa-comment-dots p-2"></span></a>
-                                    </li>
-                                    <li class="space-between">
-                                        <a><span class="fa fa-paper-plane p-2"></span></a>
-                                    </li>
-
-                                    <li class="space-between">
-                                        <a><span class="fa fa-bookmark p-2"></span></a>
-                                    </li>
-                                </ul>
-
-                            </div>
-                            <p class="text-dark mb-1 px-2 txt-cl">I miss being in the Maldives and never knowing what
-                                day of the week it is</p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-sm-6 col-lg-4 mb-4">
-                        <div class="card-body bg-white r-border">
-
-
-                            <div class="row">
-                                <div class="col">
-                                    <h6 class="text-dark px-1">Name</h6>
-                                </div>
-                                <div class="col">
-                                    <span class="d-flex justify-content-end">
-                                        <a type="button" id="dropdown-menu" data-toggle="#dropdown-menu"
-                                            aria-haspopup="true" aria-expanded="false">
-                                            <i class="fa fa-ellipsis-v"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-primary" id="dropdown-menu">
-                                            <a class="dropdown-item"><i class="fab fa-apple-pay"></i>Pay</a>
-                                            <a class="dropdown-item"><i class="fas fa-bell-slash"></i>Disable
-                                                alertss</a>
-                                            <a class="dropdown-item"><i class="far fa-envelope"></i>Check mail</a>
-                                        </div>
-                                    </span>
-
-                                </div>
-                            </div>
-                            <p class="text-muted px-1">Location</p>
-                            <img class="card-img-top"
-                                src="https://images.unsplash.com/photo-1573843981267-be1999ff37cd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bWFsZGl2ZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
-                                alt="Card image cap">
-                            <div class="d-flex justify-content-between">
-
-                                <ul class="nav">
-                                    <li class="space-between">
-                                        <a><span class="fa fa-heart p-2"></span></a>
-                                    </li>
-                                    <li class="space-between">
-                                        <a><span class="fa fa-comment-dots p-2"></span></a>
-                                    </li>
-                                    <li class="space-between">
-                                        <a><span class="fa fa-paper-plane p-2"></span></a>
-                                    </li>
-
-                                    <li class="space-between">
-                                        <a><span class="fa fa-bookmark p-2"></span></a>
-                                    </li>
-                                </ul>
-
-                            </div>
-                            <p class="text-dark mb-1 px-2 txt-cl">I miss being in the Maldives and never knowing what
-                                day of the week it is</p>
-                        </div>
-                    </div>
                 </div>
 
             </div>
         </div>
+
+
+
+
+
+    <!-- SIDE BAR PROFILE INFO -->
         <div class="col col-3 hide-content">
             <div class="position-fixed">
                 <div class="profile-bg p-4">

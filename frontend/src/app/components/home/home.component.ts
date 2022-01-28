@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
 
   user: any;
   images: any;
+  allPosts: any;
 
   constructor(
     private _users: UserservicesService,
@@ -55,17 +56,15 @@ export class HomeComponent implements OnInit {
       caption: '',
     });
 
-    // this.getAllPosts();
+    this.getAllPosts();
   }
 
-  // getAllPosts(): void {
-  //   this._users.getAll().subscribe({
-  //     next: (data) => {
-  //       this._post = data;
-  //     },
-  //     error: (e) => console.error(e),
-  //   });
-  // }
+  getAllPosts(): void {
+    this._users.getAll().subscribe((data) => {
+      this.allPosts = data
+      console.log(this.allPosts)
+    })
+  }
 
   // findAccount(): void {
   //   this._users.searchByUsername(this.username).subscribe({
@@ -137,8 +136,8 @@ export class HomeComponent implements OnInit {
     formData.append('username', this.user.username);
     formData.append('user_id', this.user.user_id);
 
-    this._users.create(formData).subscribe(() => {
-      console.log('image sent');
+    this._users.create(formData).subscribe((data) => {
+      console.log(data);
     });
   }
 

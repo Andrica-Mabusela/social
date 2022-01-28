@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser')
 const jwt = require('jsonwebtoken')
 const { application } = require('express');
 const multer = require('multer');
-const fileExtension = require('file-extension')
+// const fileExtension = require('file-extension')
 const pool = require('./config/db')
 
 
@@ -23,7 +23,7 @@ var storage = multer.diskStorage({
 
     // Setting directory on disk to save uploaded files
     destination: function (req, file, cb) {
-        cb(null, 'uploads')
+        cb(null, '/Users/academy_learner/Desktop/group-i/frontend/src/assets/img')
     },
 
     // Setting name of file saved
@@ -37,15 +37,40 @@ var upload = multer({storage: storage, limits: { fieldSize: 10 * 1024 * 1024 }})
 
 
 app.post('/uploadfile', upload.single('uploadedImage'), async (req, res) => {
-console.log(req.file)
+
+const imgPath = '../../../assets/img/' + req.file.filename
 
 const { location, caption, username, user_id } = req.body;
+console.log(req.body)
 
-const post = await pool.query("INSERT INTO posts(user_id, username, location, caption) VALUES($1, $2, $3, $4) RETURNING *", [user_id, username, location, caption])
+const post = await pool.query("INSERT INTO posts(user_id, username, myLocation, caption, imgPath) VALUES($1, $2, $3, $4, $5) RETURNING *", [user_id, username, location, caption, imgPath])
 
-console.log(post.rows[0])
+ if(post.rows[0] != undefined){
+    console.log('datahjdschjshd')
+    res.json({data: post.rows[0]})
+ } else {
+     console.log('errror...')
+     res.json({error: 'error occurred'})
+ }
 
 })
+
+
+app.get('/posts', async (req, res) => {
+
+    try {
+        const allPosts = await pool.query('SELECT * from posts')
+        console.log('got all posts')
+        res.send(allPosts.rows)  
+    }
+    catch(error) {
+        res.send(error.message)
+    }
+    
+})
+
+
+
 
 
 app.get('/test', (req, res) => {
