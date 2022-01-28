@@ -138,6 +138,7 @@ export class HomeComponent implements OnInit {
 
     this._users.create(formData).subscribe((data) => {
       console.log(data);
+      window.location.reload()
     });
   }
 
