@@ -11,6 +11,9 @@ const pool = require('./config/db')
 // EXPRESS APP
 const app = express();
 
+//Server binding for LAN
+const host = '10.10.3.19';
+
 // CORS
 app.use(cors({origin: true, credentials: true}))
 
