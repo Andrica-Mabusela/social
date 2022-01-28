@@ -172,7 +172,7 @@
                         <img class="circle" src="../../../assets/img/houcine-ncib.jpg" alt="">
                         <h2 class="text-dark">{{ userInfo.username }}</h2>
                         <h5 class="text-dark desc-text">fine art photography</h5>
-                        <button class="btn btn-edit">Edit</button>
+                        <button class="btn btn-edit" (click)="logUserOut()">logout</button>
                     </div>
 
                     <div class="d-flex justify-content-between mt-2">
@@ -190,7 +190,7 @@
                         </div>
                     </div>
 
-                    <h4 class="mt-2 text-dark">Luci Higgs</h4>
+                    <h4 class="mt-2 text-dark">{{ userInfo.firstName }} {{ userInfo.lastName }}</h4>
                     <p class="text-dark status-text">I am a young creative mind specialized in Software Product Design
                         and
                         Photography.</p>
@@ -215,24 +215,25 @@
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <form class="row g-3">
+                    <form [formGroup]="postForm" class="row g-3" (ngSubmit)="onCreatePost()" enctype="multipart/form-data" >
                         <div class="col-12 m-1">
                             <label class="file-btn" for="actual-btn">Choose Image</label>
-                            <input type="file" id="actual-btn" hidden/>
+                            <input type="file" formControlName="uploadedImage" name="uploadedImage" id="actual-btn" multiple (change)="selectImage($event)" />
                         </div>
                         <div class="col-12 m-1">
-                          <input type="text" class="form-control" placeholder="Location">
+                          <input type="text" formControlName="location" name="location" class="form-control" placeholder="Location">
                         </div>
                         <div class="col-12 m-1">
-                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Caption..."></textarea>
+                            <textarea formControlName="caption" class="form-control" name="caption"  placeholder="Caption..."></textarea>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Post</button>
                         </div>
                       </form>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Post</button>
-            </div>
+            
         </div>
     </div>
 </div>

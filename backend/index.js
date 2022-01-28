@@ -2,8 +2,11 @@ const express = require('express');
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const jwt = require('jsonwebtoken')
-const multer = require('multer');
 const { application } = require('express');
+const multer = require('multer');
+const fileExtension = require('file-extension')
+const pool = require('./config/db')
+
 
 // EXPRESS APP
 const app = express();
@@ -15,20 +18,39 @@ app.use(cors({origin: true, credentials: true}))
 app.use( express.json() )
 app.use( cookieParser() )
 
+// Configure Storage
+var storage = multer.diskStorage({
 
-const storage = multer.diskStorage({
-    destination: (req, file, callBack) => {
-        callBack(null, 'uploads')
+    // Setting directory on disk to save uploaded files
+    destination: function (req, file, cb) {
+        cb(null, 'uploads')
     },
-    filename: (req, file, callBack) => {
-        callBack(null, `myImage_${file.originalname}`)
+
+    // Setting name of file saved
+    filename: function (req, file, cb) {
+        cb(null, `${Date.now()}-${file.originalname}`)
     }
 })
 
-var upload = multer({storage: storage})
+var upload = multer({storage: storage, limits: { fieldSize: 10 * 1024 * 1024 }})
 
 
 
+app.post('/uploadfile', upload.single('uploadedImage'), async (req, res) => {
+console.log(req.file)
+
+const { location, caption, username, user_id } = req.body;
+
+const post = await pool.query("INSERT INTO posts(user_id, username, location, caption) VALUES($1, $2, $3, $4) RETURNING *", [user_id, username, location, caption])
+
+console.log(post.rows[0])
+
+})
+
+
+app.get('/test', (req, res) => {
+    
+})
 
 // ROUTES
 app.use('/auth', require('./routes/auth.routes'))

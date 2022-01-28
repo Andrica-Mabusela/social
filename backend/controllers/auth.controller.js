@@ -5,7 +5,7 @@ const joi = require('@hapi/joi')
 
 
 
-const maxAge = 2 * 24 * 60 * 60
+const maxAge = 2 * 24 * 60 * 60 * 1000
 
 const createToken = (id) => {
     console.log('reached createToken')
@@ -18,7 +18,7 @@ module.exports.authController = {
 
     createUser: async (req, res) => {
         // user data
-        const {username, email, password} = req.body
+        const {firstName, lastName, username, email, password} = req.body
 
 
         // 1. CHECK IF EMAIL ADDRESS EXISTS IN THE DATABASE
@@ -50,7 +50,7 @@ module.exports.authController = {
                     // HASH THE PASSWORD
                     const salt = bcrypt.genSaltSync(10)
                     const hashedPassword = bcrypt.hashSync(password, salt);
-                    const createUserQuery = await pool.query("INSERT INTO users(username, email, password) VALUES($1, $2, $3) RETURNING *", [username, email, hashedPassword])
+                    const createUserQuery = await pool.query("INSERT INTO users(firstName, lastName, username, email, password) VALUES($1, $2, $3, $4, $5) RETURNING *", [firstName, lastName, username, email, hashedPassword])
                     console.log(createUserQuery.rows[0].user_id)
                     console.log("new user has been created")
                     res.json({error: null, success: true, user: createUserQuery.rows[0]})
@@ -83,9 +83,9 @@ module.exports.authController = {
                 const user_id = getEmailQuery.rows[0].user_id;
                 console.log('user_id:', user_id)
                 const token = createToken(getEmailQuery.rows[0])
-                console.log(token)
+                console.log(getEmailQuery.rows[0])
                 res.cookie('user', token, {httpOnly: true, sameSite: true, maxAge: maxAge})
-                res.send({error: null, success: true, user: {username: getEmailQuery.rows[0].username, email: getEmailQuery.rows[0].email}, token: token})
+                res.send({error: null, success: true, user: getEmailQuery.rows[0], token: token})
             } else {
                 res.send({error: "incorrect email/password combination", success: false, user: null})
             }

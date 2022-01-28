@@ -3,6 +3,39 @@
         <h4 class="text-center p-2">sign up</h4>
          <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
 
+             <!-- FIRST NAME FIELD -->
+            <div class="form-group">
+                <div class="error"
+                    *ngIf="myForm.get('firstName').invalid && ( myForm.get('firstName').dirty || myForm.get('firstName').touched )">
+                    <div *ngIf="myForm.get('firstName').errors?.['required']">
+                        First Name is required
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <input type="text" formControlName="firstName" placeholder="First Name" class="form-control" autocomplete="off">
+                </div>
+            </div>
+
+
+                <!-- LAST NAME FIELD -->
+                <div class="form-group">
+                    <div class="error"
+                        *ngIf="myForm.get('lastName').invalid && ( myForm.get('lastName').dirty || myForm.get('lastName').touched )">
+                        <div *ngIf="myForm.get('lastName').errors?.['required']">
+                            Last Name is required
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <input type="text" formControlName="lastName" placeholder="Last Name" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+
             <!-- USERNAME FIELD -->
              <div class="form-group">
                  <div class="error" *ngIf="myForm.get('username').invalid && ( myForm.get('username').dirty || myForm.get('username').touched )">
