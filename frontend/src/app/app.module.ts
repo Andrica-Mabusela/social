@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterSystemComponent } from './components/register-system/register-system.component';
 import { LoginSystemComponent } from './components/login-system/login-system.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { HomeComponent } from './components/home/home.component';
 
@@ -19,7 +20,9 @@ import { HomeComponent } from './components/home/home.component';
     RegisterSystemComponent,
     LoginSystemComponent,
     NavBarComponent,
-    HomeComponent
+    HomeComponent,
+    ProfileComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
