@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { UserStories } from '../models/user-stories.model';
 import { Observable } from 'rxjs';
 
-const _url = 'http://localhost:8080';
+const _url = 'http://localhost:5000';
 
 @Injectable({
   providedIn: 'root'
@@ -13,28 +13,28 @@ export class UserservicesService {
   constructor(private _http: HttpClient) { }
 
 
-  getAll(): Observable<UserStories[]> {
-    return this._http.get<UserStories[]>(_url);
+  getAll(): Observable<any> {
+    return this._http.get<any>(`${_url}/posts`);
   }
   
-  create(data: any): Observable<UserStories[]> {
-    return this._http.post<UserStories[]>(_url, data);
+  create(data: any): Observable<any> {
+    return this._http.post<any>(`${_url}/uploadFile`, data);
   }
 
-  update(id: any, data: any): Observable<any> {
-    return this._http.put(`${_url}/${id}`, data);
-  }
+  // update(id: any, data: any): Observable<any> {
+  //   return this._http.put(`${_url}/${id}`, data);
+  // }
 
-  delete(id: any): Observable<any> {
-    return this._http.delete(`${_url}/${id}`);
-  }
+  // delete(id: any): Observable<any> {
+  //   return this._http.delete(`${_url}/${id}`);
+  // }
 
-  searchByUsername(username: any): Observable<UserStories[]> {
-    return this._http.get<UserStories[]>(`${_url}?username=${username}`);
-  }
+  // searchByUsername(username: any): Observable<UserStories[]> {
+  //   return this._http.get<UserStories[]>(`${_url}?username=${username}`);
+  // }
 
-  getSinglePost(id: any): Observable<UserStories> {
-    return this._http.get(`${_url}/${id}`);
-  }
+  // getSinglePost(id: any): Observable<UserStories> {
+  //   return this._http.get(`${_url}/${id}`);
+  // }
 
 }

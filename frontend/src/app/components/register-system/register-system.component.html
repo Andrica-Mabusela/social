@@ -1,0 +1,129 @@
+<div id="register-wrapper">
+    <div class="card">
+        <h4 class="text-center p-2">sign up</h4>
+         <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+
+             <!-- FIRST NAME FIELD -->
+            <div class="form-group">
+                <div class="error"
+                    *ngIf="myForm.get('firstName').invalid && ( myForm.get('firstName').dirty || myForm.get('firstName').touched )">
+                    <div *ngIf="myForm.get('firstName').errors?.['required']">
+                        First Name is required
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <input type="text" formControlName="firstName" placeholder="First Name" class="form-control" autocomplete="off">
+                </div>
+            </div>
+
+
+                <!-- LAST NAME FIELD -->
+                <div class="form-group">
+                    <div class="error"
+                        *ngIf="myForm.get('lastName').invalid && ( myForm.get('lastName').dirty || myForm.get('lastName').touched )">
+                        <div *ngIf="myForm.get('lastName').errors?.['required']">
+                            Last Name is required
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <input type="text" formControlName="lastName" placeholder="Last Name" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+
+            <!-- USERNAME FIELD -->
+             <div class="form-group">
+                 <div class="error" *ngIf="myForm.get('username').invalid && ( myForm.get('username').dirty || myForm.get('username').touched )">
+                     <div *ngIf="myForm.get('username').errors?.['required']">
+                         Username is required
+                     </div>
+                 </div>
+             <div class="input-group">
+                 <div class="input-group-addon">
+                     <i class="fas fa-user"></i>
+                 </div>
+                 <input type="text" formControlName="username" placeholder="username" class="form-control" autocomplete="off">
+             </div>
+             </div>
+
+             <!-- EMAIL FIELD  -->
+             <div class="form-group">
+                 <div class="error" *ngIf="myForm.get('email').dirty || myForm.get('email').touched ">
+                     <div *ngIf="myForm.get('email').errors?.['required']; else badEmail">Email Address is required</div>
+                
+                     <ng-template #badEmail>
+                        <div class="error" *ngIf="invalidEmailError == 'Your Email Address is invalid' ">Email Address is invalid</div>
+                        <div class="error" *ngIf="emailExistsError == 'Email address already exists' ">Email address is already registered</div>
+                    </ng-template>
+                </div>
+               
+                 
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <input type="email" formControlName="email" placeholder="email" class="form-control" autocomplete="off">
+                </div>
+            </div>
+
+
+            <!-- DATE FIELD  -->
+            <!-- <div class="form-group">
+                <div class="error" *ngIf="myForm.get('date').invalid && ( myForm.get('date').dirty || myForm.get('date').touched )">
+                    <div *ngIf="myForm.get('date').errors?.['required']">Date of Birth is required</div>
+                    <div></div>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="far fa-calendar-alt"></i>
+                    </div>
+                    <input type="date" formControlName="date" class="form-control" autocomplete="off">
+                </div>
+            </div> -->
+
+            <!-- PASSWORD FIELD  -->
+
+            <div class="form-group">
+                <div class="error" *ngIf="myForm.get('password').invalid && ( myForm.get('password').dirty || myForm.get('password').touched )">
+                    <div *ngIf="myForm.get('password').errors?.['required']">Password is Required</div>
+                    <div *ngIf="myForm.get('password').errors?.['minlength']">Password must be at least 8 characters</div>
+                </div>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <input type="password" formControlName="password" placeholder="password" class="form-control" autocomplete="off">
+                    </div>
+            </div>
+
+            <!-- CONFIRM PASSWORD FIELD  -->
+
+            <div class="form-group">
+                <div class="error" *ngIf="myForm.get('confirm_password').invalid && ( myForm.get('confirm_password').dirty || myForm.get('confirm_password').touched )">
+                    <div *ngIf="myForm.get('confirm_password').errors?.['required']">Confirm Your Password</div>
+                    <div *ngIf="myForm.get('confirm_password').errors?.['confirmPasswordMatch']">Your Passwords do not match</div>
+                </div>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <input type="password" formControlName="confirm_password" placeholder="confirm password" class="form-control" autocomplete="off">
+                </div>
+             </div>
+
+            <button type="submit" class="btn btn-md btn-block text-white">sign up</button>
+
+         </form>
+         <p class="text-center mt-4">By signing up, you agree to our Terms, Data Policy and Cookie Policy.</p>
+    </div>
+    
+    <p class="text-center mt-3">have an account? <button class="btn btn-link text-dark font-weight-bold" (click)="toSignIn()">Log in</button></p>
+</div>
+
+<router-outlet></router-outlet>

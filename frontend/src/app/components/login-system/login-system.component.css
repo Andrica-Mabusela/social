@@ -1,0 +1,38 @@
+#login-wrapper {
+    width: 95%;
+    position: fixed;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%, -30%);
+}
+
+#login-wrapper .card {
+    background-color: #f0f4fb;
+    padding: 20px;
+}
+
+.input-group-addon {
+    background-color: #fff;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    border: 1px solid lightgrey;
+}
+
+#login-wrapper .card  .signin-btn{
+    background-color: #5ccfba;
+}
+
+
+.error {
+    color: red;
+}
+
+
+
+/* SMALL DEVICES  */
+@media (min-width: 576px) {
+    #login-wrapper {
+        width: 400px;
+    }
+}
