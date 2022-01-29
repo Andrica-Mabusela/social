@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { UserStories } from 'src/app/models/user-stories.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -9,6 +9,7 @@ import { UserservicesService } from 'src/app/services/userservices.service';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
   @Input() userInfo: any;
@@ -17,6 +18,7 @@ export class HomeComponent implements OnInit {
   user: any;
   images: any;
   allPosts: any;
+  refreshIndex: number = 0;
 
   constructor(
     private _users: UserservicesService,
@@ -55,9 +57,15 @@ export class HomeComponent implements OnInit {
       location: '',
       caption: '',
     });
-
+    
     this.getAllPosts();
     console.log(this.allPosts)
+
+    if(localStorage.getItem('refreshIndex') == '0') {
+      location.reload()
+      localStorage.setItem('refreshIndex', '1')
+    }
+
   }
 
   getAllPosts(): void {

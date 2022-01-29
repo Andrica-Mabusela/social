@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
   selector: 'app-register-system',
   templateUrl: './register-system.component.html',
   styleUrls: ['./register-system.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class RegisterSystemComponent implements OnInit {
   constructor(
@@ -54,9 +55,12 @@ export class RegisterSystemComponent implements OnInit {
           username: data.user.username,
           email: data.user.email,
         };
-        
 
         localStorage.setItem('user', JSON.stringify(userData));
+        if (localStorage.getItem('refreshIndex') == '0') {
+          location.reload();
+          localStorage.setItem('refreshIndex', '1');
+        }
       } else {
         this.invalidEmailError = data.error;
         console.log(this.invalidEmailError);

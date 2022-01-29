@@ -15,7 +15,7 @@
           
             <div class="col-sm-6 col-md-4">
                 <div class="d-flex justify-content-between">
-                    <h4>Faranani</h4>
+                    <h4>{{ currentUser.username }}</h4>
                     <button class="btn btn-cl">edit profile</button>
                     <!-- <h6 class="bg-dark text-center p-1 text-white">Profile</h6> -->
                 </div>
@@ -47,52 +47,76 @@
         <br>
 
         <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
-              <div class="card">
-                <img src="../../../assets/images/faranani.jpeg" alt="image not found">
-                <div class="card-body">
-                
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card">
-                <img src="../../../assets/images/faranani.jpeg  " alt="image not found">
-                <div class="card-body">
-                </div>
-              </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="../../../assets/images/faranani.jpeg" alt="image not found">
-                  <div class="card-body">
-                  </div>
-                </div>
-              </div>
-
-              <div class="col mt-3">
-                <div class="card">
-                    <img src="../../../assets/images/faranani.jpeg" alt="image not found">
-                  <div class="card-body">
-                  </div>
-                </div>
-              </div>
-            <div class="col mt-3">
-              <div class="card">
-                <img src="../../../assets/images/faranani.jpeg" alt="image not found">
-                <div class="card-body">
-        
-                </div>
-              </div>
-            </div>
-            <div class="col mt-3">
-              <div class="card">
-                <img src="../../../assets/images/faranani.jpeg" alt="image not found">
-                <div class="card-body">
             
+          <div *ngFor="let post of currentUserPosts" class="col-md-6 col-sm-6 col-lg-4 mb-4 post-card">
+            <div class="card-body bg-white box-shadow r-border">
+          
+          
+              <div class="row">
+                <div class="col">
+                  <h6 class="text-dark px-1">
+                    {{post.username}}
+                  </h6>
+                </div>
+                <div class="col">
+                  <span class="d-flex justify-content-end">
+                    <a type="button" id="dropdown-menu" data-toggle="modal" data-target="#drop-down">
+                      <i class="fa fa-ellipsis-v"></i>
+                    </a>
+          
+                    <!-- Modal -->
+                    <div class="modal fade" id="drop-down" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                      aria-hidden="true">
+                      <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">Options</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <a class="dropdown-item"><i class="fa fa-edit"></i> Edit</a>
+                            <a class="dropdown-item"><i class="fa fa-trash"></i> Delete</a>
+                            <a class="dropdown-item"><i class="fa fa-times"></i> Cancel</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+          
                 </div>
               </div>
+              <p class="text-muted px-1">{{post.mylocation}}</p>
+          
+              <img class="card-img-top" [src]="post.imgpath" alt="not found" />
+          
+              <div class="d-flex justify-content-between">
+          
+                <ul class="nav">
+                  <li class="space-between">
+                    <a><span class="fa fa-heart p-2"></span></a>
+                  </li>
+                  <li class="space-between">
+                    <a><span class="fa fa-comment-dots p-2"></span></a>
+                  </li>
+                  <li class="space-between">
+                    <a><span class="fa fa-paper-plane p-2"></span></a>
+                  </li>
+          
+                  <li class="space-between">
+                    <a><span class="fa fa-bookmark p-2"></span></a>
+                  </li>
+                </ul>
+          
+              </div>
+              <p class="text-dark mb-1 px-2 txt-cl">
+                {{post.caption}}
+              </p>
             </div>
+          </div>
+        
+         
         </div>
     </section>
 

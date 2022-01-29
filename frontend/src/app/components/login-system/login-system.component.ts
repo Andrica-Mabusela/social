@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   selector: 'app-login-system',
   templateUrl: './login-system.component.html',
   styleUrls: ['./login-system.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class LoginSystemComponent implements OnInit {
   constructor(
@@ -42,6 +43,8 @@ export class LoginSystemComponent implements OnInit {
         };
         console.log('userData: ', userData);
         localStorage.setItem('user', JSON.stringify(userData));
+        localStorage.setItem('refreshIndex', '0')
+
       } else {
         this.loginError = data.error;
       }

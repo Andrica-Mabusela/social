@@ -6,6 +6,15 @@
   transform: translate(-50%, -30%);
 }
 
+
+.navbar {
+  display: none !important;
+}
+
+.side-nav {
+  display: none !important;
+}
+
 #login-wrapper .card {
   background-color: #f0f4fb;
   padding: 20px;

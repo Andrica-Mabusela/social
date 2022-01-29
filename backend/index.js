@@ -2,8 +2,9 @@ const express = require('express');
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const jwt = require('jsonwebtoken')
-const { application } = require('express');
 const multer = require('multer');
+
+const { application } = require('express');
 // const fileExtension = require('file-extension')
 const pool = require('./config/db')
 
@@ -20,6 +21,7 @@ app.use(cors({origin: true, credentials: true}))
 // SERVE JSON
 app.use( express.json() )
 app.use( cookieParser() )
+
 
 // Configure Storage
 var storage = multer.diskStorage({
@@ -79,14 +81,26 @@ app.get('/posts', async (req, res) => {
 })
 
 
+// GET CURRENT USER POSTS
+app.get('/posts/:id', async (req, res) => {
 
+    try {
+        const userPosts = await pool.query("SELECT * FROM posts WHERE user_id = $1", [req.params.id])
+        console.log(userPosts)
+        console.log('posts retrieved')
+        res.send({error: null, posts: userPosts.rows})
+    } catch(error) {
+        console.log(error)
+        res.send({error: error.message, posts: null})
+    }
 
-
-app.get('/test', (req, res) => {
-    
 })
 
+
+
+
 // ROUTES
+// app.use('/posts', require('./routes/posts.routes'))
 app.use('/auth', require('./routes/auth.routes'))
 
 
