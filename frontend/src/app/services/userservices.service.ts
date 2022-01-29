@@ -6,17 +6,15 @@ import { Observable } from 'rxjs';
 const _url = 'http://localhost:5000';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserservicesService {
-
-  constructor(private _http: HttpClient) { }
-
+  constructor(private _http: HttpClient) {}
 
   getAll(): Observable<any> {
     return this._http.get<any>(`${_url}/posts`);
   }
-  
+
   create(data: any): Observable<any> {
     return this._http.post<any>(`${_url}/uploadFile`, data);
   }
@@ -36,5 +34,4 @@ export class UserservicesService {
   // getSinglePost(id: any): Observable<UserStories> {
   //   return this._http.get(`${_url}/${id}`);
   // }
-
 }

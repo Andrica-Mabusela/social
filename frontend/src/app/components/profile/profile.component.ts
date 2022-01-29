@@ -9,6 +9,8 @@ export class ProfileComponent implements OnInit {
 
   constructor() { }
 
+  currentUserPosts: any;
+
   ngOnInit(): void {
   }
 
