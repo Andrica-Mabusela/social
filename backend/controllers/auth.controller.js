@@ -26,6 +26,16 @@ module.exports.authController = {
       // SYNC THE USER MODEL TO THE USERS TABLE
       User.sync({ alter: true });
 
+        // CHECK IF EMAIL ADDRESS IS REGISTERED
+      const findEmailQuery = await User.findAll({
+        where: { email: req.body.email },
+        limit: 1,
+      });
+
+      if (findEmailQuery.length == 1)
+        throw new Error("Email Address Is Already Registered");
+
+
       // HASH THE USER PASSWORD
       const salt = bcrypt.genSaltSync(10);
       const hashedPassword = bcrypt.hashSync(
@@ -61,7 +71,7 @@ module.exports.authController = {
       // SYNC THE MODEL TO THE TABLE
       User.sync({ alter: true });
 
-      // CHECK IF PHONE NUMBER IS REGISTERED
+      // CHECK IF EMAIL ADDRESS IS REGISTERED
       const findEmailQuery = await User.findAll({
         where: { email: req.body.email },
         limit: 1,
