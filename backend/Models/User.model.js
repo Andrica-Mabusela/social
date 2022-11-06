@@ -4,20 +4,20 @@ const { DataTypes } = Sequelize // GETS THE DataTypes Object, used to set data t
 
 
 const User = sequelizeConnection.define('user', {
-    userId: {
+    userid: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    firstName: {
+    firstname: {
         type: DataTypes.STRING,
         // allowNull: false
     },
-    lastName: {
+    lastname: {
         type: DataTypes.STRING,
         // allowNull: false
     },
-    userName: {
+    username: {
         type: DataTypes.STRING,
         // allowNull: false
     },

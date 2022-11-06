@@ -1,9 +1,10 @@
 const sequelizeConnection = require('../config/db.config');
 const { DataTypes } = require('sequelize').Sequelize;
-const Comment  = require('./Comment.model');
 
-const Post = sequelizeConnection.define('post', {
-    postid: {
+const User = require('./User.model');
+
+const Story = sequelizeConnection.define('story', {
+    storyid: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
@@ -14,7 +15,7 @@ const Post = sequelizeConnection.define('post', {
         allowNull: true
     },
 
-    imgurl: {
+    mediaurl: {
         type: DataTypes.STRING,
         allowNull: true
     },
@@ -24,21 +25,12 @@ const Post = sequelizeConnection.define('post', {
         allowNull: true
     },
 
-    shares: {
-        type: DataTypes.ARRAY(DataTypes.DECIMAL),
-        allowNull: true
-    },
-
-    commentid: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: { tableName: 'comments' },
-            key: 'commentid'
-        }
+    userid: {
+        type: DataTypes.INTEGER
     }
+
 })
 
+User.hasMany(Story);
 
-Post.hasMany(Comment)
-
-module.exports = Post;
+module.exports = Story;

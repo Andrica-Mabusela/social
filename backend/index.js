@@ -99,8 +99,8 @@ app.use( express.urlencoded({ extended: false }) );
 
 
 // ROUTES
-// app.use('/posts', require('./routes/posts.routes'))
-app.use('/auth', require('./routes/auth.route'))
+app.use('/api/posts', require('./routes/posts.route'))
+app.use('/api/auth', require('./routes/auth.route'))
 
 
 // CREATE A PORT

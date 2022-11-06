@@ -3,22 +3,24 @@ const { DataTypes } = require('sequelize').Sequelize;
 
 const Comment = sequelizeConnection.define('comment', {
 
-    commentId: {
+    commentid: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
 
-    text: {
+    txt: {
         type: DataTypes.STRING,
         allowNull: false
     },
 
-    userId: {
+    userid: {
         type: DataTypes.INTEGER
     },
 
-    postId: {
+    postid: {
         type: DataTypes.INTEGER
     }
 })
+
+module.exports = Comment;
