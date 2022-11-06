@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize').Sequelize;
 
 const User = require('./User.model');
 
-const Story = sequelizeConnection.define('story', {
+const Story = sequelizeConnection.define('stories', {
     storyid: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -26,8 +26,12 @@ const Story = sequelizeConnection.define('story', {
     },
 
     userid: {
-        type: DataTypes.INTEGER
-    }
+        type: DataTypes.INTEGER,
+        references:{
+            model: { tableName: 'users'},
+            key: 'userId'
+        }
+    },
 
 })
 

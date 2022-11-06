@@ -130,8 +130,7 @@ module.exports.PostController = {
                 throw new Error('Post does not Exist');
             }
 
-            let x = {...post[0].dataValues, ...req.body}
-            console.log('$$$$$$$$$', x);
+           
             // Post exists, therefore update post
             const updatedPostQuery = await Post.update({...req.body}, {
                 where: {
