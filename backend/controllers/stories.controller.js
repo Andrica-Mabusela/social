@@ -26,7 +26,7 @@ module.exports.StoryController = {
             console.log('STORY:', story);
             res.status(200).json(story);
         }catch(error) {
-            console.log(error);
+            console.log(error.message);
             res.status(500).json(error.message);
         }
     },
